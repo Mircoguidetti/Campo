@@ -111,5 +111,4 @@ router.delete("/:id", middleware.checkCampgroundsOwnership, (req, res) => {
 
 
 
-
 module.exports = router;
