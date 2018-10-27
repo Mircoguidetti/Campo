@@ -109,9 +109,7 @@ router.delete("/:id", middleware.checkCampgroundsOwnership, (req, res) => {
 	});
 });
 
-let escapeRegex = (text) => {
-    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-};
+
 
 
 module.exports = router;
