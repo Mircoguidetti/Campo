@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router({mergeParms:true});
 const Campground = require("../models/campground");
+const middleware = require("../middleware");
 
 
 //index route
@@ -53,6 +54,64 @@ router.get("/new", middleware.isLoggedIn, (req, res) => {
 	res.render("campgrounds/new");
 });
 
+//show route - shows more info about one campground
+router.get("/:id", (req, res) => {
+	//find the campground with provided ID
+	Campground.findById(req.params.id).populate("comments").exec((error, foundCamp) => {
+		if(error || !foundCamp){
+			req.flash("error", "Campground not found");
+			res.redirect("/campgrounds");
+		}else{
+			//render show template with that campground
+			res.render("campgrounds/show", {campground: foundCamp});
+		}
+	});
+});
+
+//edit campground route
+router.get("/:id/edit", middleware.checkCampgroundsOwnership, (req, res) => {
+
+	Campground.findById(req.params.id, (error, foundCamp) => {
+		res.render("campgrounds/edit", {campground: foundCamp});
+	});
+});
+
+//update campground route
+router.put("/:id", middleware.checkCampgroundsOwnership,upload.single('image'), (req, res) => {
+	cloudinary.uploader.upload(req.file.path, (result) => {
+      	// add cloudinary url for the image to the campground object under image property
+      	req.body.campground.image = result.secure_url;
+      	// add author to campground
+      	req.body.campground.author = {
+        	id: req.user._id,
+        	username: req.user.username
+      	}
+      	Campground.findByIdAndUpdate(req.params.id, req.body.campground, (error, updateCampground) => {
+      	req.flash("success", "Campground update");
+		res.redirect("/campgrounds/" + req.params.id);
+		});
+    });
+});
+
+
+
+
+//destroy campground route
+router.delete("/:id", middleware.checkCampgroundsOwnership, (req, res) => {
+	Campground.findByIdAndRemove(req.params.id, (error) => {
+		if(error){
+			console.log(error)
+			res.redirect("/campgrounds");
+		}else{
+			req.flash("success", "Campground removed");
+			res.redirect("/campgrounds");
+		}
+	});
+});
+
+let escapeRegex = (text) => {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 
 module.exports = router;
