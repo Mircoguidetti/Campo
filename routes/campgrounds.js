@@ -1,5 +1,5 @@
-const express = require("express"),
-      router = express.Router({mergeParms:true});
+const express = require("express");
+const router = express.Router({mergeParms:true});
 
 
 router.gett('/', (req, res) => {
