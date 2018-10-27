@@ -3,7 +3,7 @@ const router = express.Router({mergeParms:true});
 const Campground = require("../models/campground");
 
 
-
+//index route
 router.get("/", (req, res) => {
 
 	if(req.query.search){
