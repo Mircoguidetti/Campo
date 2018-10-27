@@ -36,3 +36,34 @@ router.post("/register", (req, res) => {
 
 	});
 });
+
+//show login form
+router.get("/login", (req, res) => {
+	res.render("login", {page: 'login'});
+});
+
+//handling login logic
+router.post("/login", passport.authenticate("local",
+	{
+		successRedirect:"/campgrounds",
+		failureRedirect:"/login"
+	}), (req, res) => {
+
+});
+
+//logout route
+router.get("/logout", (req, res) => {
+	req.logout();
+	req.flash("success", "Logged you out");
+	res.redirect("/campgrounds");
+});
+
+//middleware
+let isLoggedIn = (req, res, next) => {
+	if(req.isAuthenticated()){
+		return next();
+	}
+	res.redirect("/login");
+}
+
+module.exports = router;
