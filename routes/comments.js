@@ -40,3 +40,48 @@ router.post("/",middleware.isLoggedIn, (req, res) => {
 		}
 	});
 });
+
+//comment edit route
+router.get("/:comment_id/edit",middleware.checkCommentsOwnership, (req, res) =>{
+	Campground.findById(req.params.id, (error, foundCampground) => {
+		if(error || !foundCampground){
+			req.flash("error", "Campground not found");
+			return res.redirect("/campgrounds");
+		}
+		Comment.findById(req.params.comment_id, (error, foundComment) => {
+			if(error){
+				res.redirect("back");
+			}else{
+				res.render("comments/edit", {campground_id: req.params.id, comment: foundComment});
+			}
+		});
+	});
+});
+
+//comment update route
+router.put("/:comment_id",middleware.checkCommentsOwnership, (req, res) => {
+	Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (error, updateComment) =>{
+		if(error){
+			res.redirect("/campgrounds");
+		}else{
+			res.redirect("/campgrounds/" + req.params.id);
+		}
+	});
+});
+
+//comment destroy route
+router.delete("/:comment_id",middleware.checkCommentsOwnership, (req, res) => {
+	Comment.findByIdAndRemove(req.params.comment_id, (error, foundComment) => {
+		if(error || !foundComment){
+			req.flash("error", "Comment not found");
+			res.redirect("/campgrounds");
+		}else{
+			res.redirect("/campgrounds/" + req.params.id)
+		}
+	});
+});
+
+
+
+
+module.exports = router;
