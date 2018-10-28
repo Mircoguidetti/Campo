@@ -16,7 +16,7 @@ Next, navigate into the downloaded folder and install the NPM dependencies:
 
 ```sh
 cd campo
-yarn install
+npm install
 ```
 
 ### 2. Setup the database service
