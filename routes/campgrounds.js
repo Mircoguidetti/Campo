@@ -2,6 +2,32 @@ const express = require("express");
 const router = express.Router({mergeParms:true});
 const Campground = require("../models/campground");
 const middleware = require("../middleware");
+const multer = require('multer');
+const cloudinary = require('cloudinary');
+
+let storage = multer.diskStorage({
+  filename: (req, file, callback) => {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+
+let imageFilter = (req, file, cb) => {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+let upload = multer({ storage: storage, fileFilter: imageFilter});
+
+
+cloudinary.config({
+  cloud_name: 'djwkv5jke',
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+
 
 
 //index route
@@ -53,6 +79,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), (req, res) => {
 router.get("/new", middleware.isLoggedIn, (req, res) => {
 	res.render("campgrounds/new");
 });
+
 
 //show route - shows more info about one campground
 router.get("/:id", (req, res) => {
@@ -108,6 +135,12 @@ router.delete("/:id", middleware.checkCampgroundsOwnership, (req, res) => {
 		}
 	});
 });
+
+let escapeRegex = (text) => {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
+
+
 
 
 
