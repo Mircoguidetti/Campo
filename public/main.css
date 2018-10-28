@@ -1,0 +1,108 @@
+.thumbnail img {
+	width:100%;
+
+}
+
+.thumbnail .index-img{
+	height: 180px;
+}
+
+.thumbnail{
+	padding: 0;
+}
+
+.thumbnail .caption-full{
+	padding: 9px;
+}
+
+.delete-form{
+	display: inline;
+}
+
+.button-edit{
+	color:black;
+}
+
+.comment-form{
+	padding: 20px;
+}
+
+
+#p-comment{
+	margin-bottom:5px;
+}
+
+.div-form{
+	width: 30%;
+	margin: 25px auto;
+}
+
+.h1-align-form{
+	text-align: center;
+}
+
+.navbar-default {
+  background-color:#F5F5F5;
+  background-image: none;
+  background-repeat: no-repeat;
+ }
+
+
+.navbar-default .navbar-brand,
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: green;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: green;
+}
+
+
+
+.search-bar{
+	outline: none;
+
+	box-shadow: none;
+	background-color:#FFFAFA;
+	text-decoration: none;
+	font-size: 16px;
+}
+
+.jumbotron{
+	background-color: #F5F5F5;
+
+}
+
+
+
+.logo{
+	font-size: 1.5em;
+}
+
+input:focus{
+	outline: none;
+
+	box-shadow: none;
+}
+
+i{
+	padding-right: 4px;
+}
+
+.navbar{
+	font-size: 15px;
+}
+
+.btn-search{
+	background-color: blue;
+}
+
+.effe{
+	font-size:20px;
+
+}
+
+.color-index{
+	color: grey;
+}
