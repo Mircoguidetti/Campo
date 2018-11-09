@@ -4,29 +4,29 @@ This project demonstrates how to build a fictional full stack Javascript web app
 
 ## Get started
 
-### 1. Download the example & install dependencies
+### 1. Download the project & install dependencies
 
 Clone the repository with the following command:
 
-```sh     
-git clone git@github.com:Mircoguidetti/campo.git
+```    
+> git clone git@github.com:Mircoguidetti/campo.git
 ```
 
-Next, navigate into the downloaded folder and install the NPM dependencies:
+Next, navigate into the downloaded folder and install the dependencies:
 
-```sh
-cd campo
-npm install
+```
+> cd campo
+> npm install
 ```
 
 ### 2. Setup the database service
 
 If you want to specifically run the app locally here are the steps: (Assuming you are going to have MongoDB installed you need to run these commands to open a connection with the database)
 
-```sh
-mkdir mongo-data
-cd mongo/bin
-./mongod --dbpath ~/mongo-data
+```
+> mkdir mongo-data
+> cd mongo/bin
+> ./mongod --dbpath ~/mongo-data
 ```
 
 
@@ -34,6 +34,6 @@ cd mongo/bin
 
 The `start` script starts the server (on `http://localhost:3000`)
 
-```sh
-npm start
+```
+> npm start
 ```
