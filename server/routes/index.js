@@ -51,6 +51,19 @@ router.post("/login", passport.authenticate("local",
 
 });
 
+router.get('/auth/google', passport.authenticate('google',
+	{scope: ['profile']}
+));
+
+router.get('/auth/google/callback', passport.authenticate('google',
+	{
+		successRedirect: '/campgrounds',
+		failureRedirect: '/login'
+	}), (req, res) => {
+
+	}
+);
+
 //logout route
 router.get("/logout", (req, res) => {
 	req.logout();
