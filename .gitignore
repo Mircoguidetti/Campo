@@ -3,9 +3,9 @@
 # dependencies
 node_modules/
 
+
 #config
 config
-
 
 # misc
 .DS_Store
