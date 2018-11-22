@@ -1,23 +1,10 @@
-.fab {
-  padding: 12px 12px;
-  font-size: 20px;
-
-	font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  margin: 10px 12px;
+.search-bar {
+	padding-bottom: 20px;
+	padding-top: 20px;
 }
-
-
-.fa-google {
-	background: #dd4b39;
-  color: white;
-}
-
-
 .thumbnail img {
 	width:100%;
-	size: 20px
+	size: 20px;
 
 }
 
@@ -116,9 +103,12 @@ i{
 	background-color: blue;
 }
 
-.effe{
-	font-size:20px;
+.register {
+  margin: 15px
+}
 
+.btn-social {
+  text-align: left;
 }
 
 .color-index{

@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 const User  = require("../models/user");
 
+
 //root route
 router.get("/", (req, res) => {
 	res.render("landing");
@@ -17,9 +18,14 @@ router.get("/register", (req, res) => {
 	res.render("register", {page: 'register'});
 });
 
+
 // handle sign up logic
 router.post("/register", (req, res) => {
-	let newUser = new User({username:req.body.username});
+	let newUser = new User({email:req.body.email, account: ['Local'], username: req.body.username});
+	if(req.body.password !== req.body.confirmPassword) {
+		req.flash("error", 'Password does not match the confirm password.');
+		return res.redirect("/register");
+	}
 	User.register(newUser, req.body.password, (error, user) => {
 		if(error){
 			req.flash("error", error.message);
@@ -51,18 +57,19 @@ router.post("/login", passport.authenticate("local",
 
 });
 
+
+// handling google oauth
 router.get('/auth/google', passport.authenticate('google',
-	{scope: ['profile']}
+	{scope: ['https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/userinfo.email']}
 ));
 
-router.get('/auth/google/callback', passport.authenticate('google',
-	{
-		successRedirect: '/campgrounds',
-		failureRedirect: '/login'
-	}), (req, res) => {
-
-	}
-);
+router.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+	(req, res) => {
+    // Successful authentication, redirect home.
+    res.redirect('/campgrounds');
+  });
 
 //logout route
 router.get("/logout", (req, res) => {

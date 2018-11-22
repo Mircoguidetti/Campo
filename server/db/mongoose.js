@@ -4,7 +4,7 @@ const keys = require('../config/keys');
 mongoose.Promise = global.Promise;
 
 // Connect to DATABASE
-const databaseUrl  = process.env.DATABASE_URL || keys.DATABASE_URL_DEV;
-mongoose.connect(databaseUrl);
+const url  =  keys.DATABASE_URL_DEV || keys.DATABASE;
+mongoose.connect(url);
 
 module.exports = {mongoose};

@@ -2,11 +2,10 @@ const express = require('express');
 const app = express();
 const mongoose = require('./db/mongoose');
 const bodyParser = require('body-parser');
-const passport = require('passport')
-
+const passport = require ('passport')
 const methodOverride = require('method-override');
 const flash	= require('connect-flash');
-const passportAuth = require ('./services/passportAuth');
+const handlePassportAuth = require ('./services/handlePassportAuth');
 
 // Requiring models
 const Comment	= require('./models/comment');

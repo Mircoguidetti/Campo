@@ -6,10 +6,10 @@ const keys = require('../config/keys');
 
 const User = require('../models/user');
 
-
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
+
 
 passport.deserializeUser((id, done) => {
   User.findById(id).then(user => {
@@ -20,26 +20,31 @@ passport.deserializeUser((id, done) => {
 passport.use(new LocalStrategy(User.authenticate()));
 
 
-
 passport.use(new GoogleStrategy({
   clientID: keys.googleClientID,
   clientSecret: keys.googleClientSecret,
   callbackURL: '/auth/google/callback'
 }, (accessToken, refreshToken, profile, done) => {
-  User.findOne({googleID: profile.id}).then((existingUser) => {
-    if (existingUser) {
-      console.log('User already exist')
-      return done(null, existingUser)
+  User.findOne({email: profile.emails[0].value}).then((existingUser) => {
+    if(existingUser && !existingUser.account.includes('Google')){
+      User.findByIdAndUpdate(existingUser.id,
+        {$set: {account: existingUser.account.concat('Google')}},
+        {new: true}).then((user) => {
+          return done(null, existingUser)
+        }).catch((error) => {
+          return console.log(error)
+        })
     }else{
-      console.log('User has been registered')
-      new User({googleID: profile.id, username: profile.displayName}).save()
-      return done(existingUser)
+      if(!existingUser) {
+        new User({username: profile.displayName, account: 'Google', email: profile.emails[0].value}).save();
+        return done(null, existingUser);
+      }
+      return done(null, existingUser)
     }
-  })
-  console.log(profile.id)
-}))
-
-
+  }).catch((error) => {
+    return done(error, null);
+  });
+}));
 
 
 module.exports = {passport};

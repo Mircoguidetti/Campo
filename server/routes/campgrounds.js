@@ -4,6 +4,8 @@ const Campground = require("../models/campground");
 const middleware = require("../middleware");
 const multer = require('multer');
 const cloudinary = require('cloudinary');
+const keys = require('../config/keys');
+
 
 
 
@@ -25,9 +27,9 @@ let upload = multer({ storage: storage, fileFilter: imageFilter});
 
 
 cloudinary.config({
-  cloud_name: 'djwkv5jke',
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
+  cloud_name: keys.cloudinaryName,
+  api_key: keys.cloudinaryApiKey,
+  api_secret: keys.cloudinaryApiSecret
 });
 
 
