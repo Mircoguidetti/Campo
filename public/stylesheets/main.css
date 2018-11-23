@@ -1,3 +1,14 @@
+*{
+	font-size: 1em;
+}
+
+#map{
+	height: 400px;
+	width: 100%;
+}
+.form-control {
+	width: 100%
+}
 .search-bar {
 	padding-bottom: 20px;
 	padding-top: 20px;
@@ -31,7 +42,6 @@
 .comment-form{
 	padding: 20px;
 }
-
 
 #p-comment{
 	margin-bottom:5px;
@@ -74,11 +84,6 @@
 	font-size: 16px;
 }
 
-.jumbotron{
-	background-color: #F5F5F5;
-
-}
-
 
 
 .logo{
@@ -103,9 +108,7 @@ i{
 	background-color: blue;
 }
 
-.register {
-  margin: 15px
-}
+
 
 .btn-social {
   text-align: left;
