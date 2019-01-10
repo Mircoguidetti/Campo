@@ -27,9 +27,9 @@ let upload = multer({ storage: storage, fileFilter: imageFilter});
 
 
 cloudinary.config({
-  cloud_name: process.env.cloudinaryName || keys.cloudinaryName,
-  api_key: process.env.cloudinaryApiKey || keys.cloudinaryApiKey,
-  api_secret: process.env.cloudinaryApiSecret || keys.cloudinaryApiSecret
+  cloud_name: keys.cloudinaryName,
+  api_key: keys.cloudinaryApiKey,
+  api_secret: keys.cloudinaryApiSecret
 });
 
 

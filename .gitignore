@@ -5,7 +5,7 @@ node_modules/
 
 
 #config
-config
+dev.js
 
 # misc
 .DS_Store
