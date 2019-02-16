@@ -1,0 +1,54 @@
+<% include ../partials/header %>
+<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+			<div id="map"></div>
+		</div>
+		<div class="col-md-9">
+			<div class="thumbnail">
+				<img class="img-responsive" src="<%= campground.image %> ">
+				<div class="caption-full">
+					<h4 class="pull-right">£<%= campground.price %>/per night</h4>
+					<h4><a href=""><%= campground.name %></a></h4>
+					<p> <%= campground.description %> </p>
+					<p> <em>Submit by <%= campground.author.username %></em></p>
+					<% if(currentUser && campground.author.id.equals(currentUser._id)) {%>
+						<a class="btn btn-sm btn-success" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
+						<form class="delete-form"  action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+							<button class="btn btn-sm btn-outline-danger">Delete</button>
+						</form>
+					<% } %>
+				</div>
+			</div>
+			<div class="well">
+				<div class="text-right">
+					<a class="btn btn-success " href="/campgrounds/<%= campground._id %>/comments/new"> Add new comment</a>
+				</div>
+				<hr>
+				<% campground.comments.forEach(function(comment){ %>
+					<div class="row">
+						<div class="col-md-12 comment-form">
+							<strong><%= comment.author.username %></strong>
+							<span class="pull-right"> <%= comment.time.toDateString() %></span>
+							<p id="p-comment"><%= comment.text %></p>
+							<% if(currentUser && comment.author.id.equals(currentUser._id)) { %>
+								<a type="button" class="btn btn-xs button-edit" href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">Edit</a>
+								<form class="delete-form button-comment" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/?_method=DELETE" method="POST">
+									<button class="btn btn-xs btn-danger">Delete</button>
+								</form>
+							<% } %>
+						</div>
+					</div>
+				<% }) %>
+			</div>
+		</div>
+		<script async defer
+			src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCX5rvaicuTdDsAWA4NfSioprD4FZqRZ2g&callback=initMap'>
+		</script>
+		<script src="/js/map.js"></script>
+	</div>
+</div>
+
+				
+<% include ../partials/footer %>
+
