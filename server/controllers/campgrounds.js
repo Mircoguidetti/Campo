@@ -4,7 +4,6 @@ const Campground = require("../models/campground");
 const middleware = require("../middleware");
 const cloudinary = require('cloudinary');
 const { upload } = require('../services/cloudinary');
-const keys = require('../config/keys');
 
 //index route
 router.get("/", (req, res) => {
